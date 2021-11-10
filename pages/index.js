@@ -33,15 +33,15 @@ function Signup() {
   };
 
   const submitBack = async function () {
-    alert("feature not yet implemented");
-    return;
+    const email2 = emailInput2.current.value;
     //% Make a request to sendVerificationEmail API route
-    const res = await fetch("/api/auth/credentials/sendVerificationEmail", {
+    const res = await fetch("/api/sendEmail", {
       method: "POST",
-      body: JSON.stringify({ email1 }),
+      body: JSON.stringify({ email: email2 }),
       headers: { "Content-Type": "application/json" },
     });
-    const parsed = await res.json(); // returns a hashed PIN if successful
+    // const parsed = await res.json(); // returns a hashed PIN if successful
+    return;
   };
   return (
     <section className={classes.container}>
