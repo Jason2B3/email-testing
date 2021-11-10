@@ -1,34 +1,35 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import classes from "../components/index.module.scss";
 import * as emailjs from "emailjs-com";
 
 function Signup() {
-  // (function () {
-  //   emailjs.init("user_de0gPeS6T4kxFW32nbdfU");
-  // })();
   const emailInput1 = useRef();
   const emailInput2 = useRef();
-  // If online, redirect to /secret
 
-  const submitFront = async function () {
+  // Send an email from the client side
+  // BE AWARE: Your private keys from the EmailJS account are exposed this way
+  const submitFront = async function (e) {
+    e.preventDefault();
     const email1 = emailInput1.current.value;
     const templateParams = {
       target: email1,
       message: "915GHT",
       from_name: "Jason2B3",
     };
-
-    const sendMail= await emailjs
-      .send(
+    let sendMail;
+    try {
+      sendMail = await emailjs.send(
         "service_dsyq5ji",
         "template_o2exrwa",
         templateParams,
-        "user_de0gPeS6T4kxFW32nbdfU"
-      )
-    console.log(sendMail) // if success {status: 200, text: 'OK'} 
-    if(sendMail.status === 200) alert("success")
-    else alert ('failure')
-    
+        "user_de0gPeS6T4kxFW32nbdf"
+      );
+      if (sendMail.status !== 200) throw new Error(sendMail.text);
+      alert("success! Email's been sent");
+    } catch (errorObj) {
+      console.log(errorObj);
+      alert(errorObj.text);
+    }
   };
 
   const submitBack = async function () {
