@@ -22,7 +22,7 @@ function Signup() {
         "service_dsyq5ji",
         "template_o2exrwa",
         templateParams,
-        "user_de0gPeS6T4kxFW32nbdf"
+        "user_de0gPeS6T4kxFW32nbdfU"
       );
       if (sendMail.status !== 200) throw new Error(sendMail.text);
       alert("success! Email's been sent");
@@ -32,17 +32,19 @@ function Signup() {
     }
   };
 
+  //% Make a request to sendVerificationEmail API route
   const submitBack = async function () {
     const email2 = emailInput2.current.value;
-    //% Make a request to sendVerificationEmail API route
     const res = await fetch("/api/sendEmail", {
       method: "POST",
       body: JSON.stringify({ email: email2 }),
       headers: { "Content-Type": "application/json" },
     });
-    // const parsed = await res.json(); // returns a hashed PIN if successful
+    const parsed = await res.json();
+    if(parsed.message==="Email sent") alert("Success operations")
     return;
   };
+  
   return (
     <section className={classes.container}>
       <h2>EMAIL TESTING</h2>
